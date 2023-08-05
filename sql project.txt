@@ -1,0 +1,44 @@
+How many repeat customer does Chinook have?
+SELECT c.customerid,
+       c.firstname,
+       c.lastname,
+       COUNT(i.customerid) count_cid
+FROM customer c
+JOIN invoice i ON c.customerid= i.customerid
+GROUP BY c.customerid 
+
+Which employee made the largest total sale?
+SELECT e.employeeid employeeid,
+       e.firstname employeefirst,
+       e.lastname employeelast,
+       MAX(i.total)highestinvoice
+FROM invoice i
+JOIN customer c ON i.customerid= c.customerid
+JOIN employee e ON e.employeeid= c.supportrepid
+GROUP BY e.employeeid
+ORDER BY MAX(i.total) DESC
+LIMIT 1
+
+
+How many tracks are in each genre?
+SELECT COUNT(g.genreid) counttotal, g.name, g.genreid
+FROM genre g
+JOIN track t
+ON t.genreid = g.genreid
+GROUP BY g.genreid
+ORDER BY g.genreid
+
+
+How many albums are in each media type?
+SELECT m.name medianame, COUNT(m.name) albumtotalpermt
+FROM album a
+JOIN track t
+ON a.albumid= t.trackid
+JOIN mediatype m
+ON t.mediatypeid= m.mediatypeid
+GROUP BY m.name
+
+
+
+
+
